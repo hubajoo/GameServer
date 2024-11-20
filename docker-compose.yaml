@@ -1,22 +1,24 @@
-name: gameserver-app
+version: '3.8'
 
 services:
   app:
     build: .
     ports:
-      - 8090:8090
+      - "8090:8090"
     depends_on:
       - db
-    environment:
-      - DATABASE_URL=postgres://postgres:password@db:5432/leaderboard
+    env_file:
+      - .env
 
   db:
     image: postgres:13
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: leaderboard
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
 volumes:
   pgdata:
