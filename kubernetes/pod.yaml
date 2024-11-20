@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: feedback-pod
+  labels:
+    name: feedback-pod
+spec:
+  containers:
+    - name: feedback-pod
+      image: joohuba/private-repo:feedback-app
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+        - containerPort: 8090
+          protocol: TCP

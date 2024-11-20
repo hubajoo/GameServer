@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  labels:
+    name: ingress
+spec:
+  rules:
+    - host: feedback
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/*"
+            backend:
+              service:
+                name: feedback-depl-service
+                port:
+                  number: 80
