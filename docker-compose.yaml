@@ -5,3 +5,18 @@ services:
     build: .
     ports:
       - 8090:8090
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/leaderboard
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: leaderboard
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

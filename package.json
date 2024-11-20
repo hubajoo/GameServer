@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app1.js"
+    "start": "nodemon app.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pg": "^8.13.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
