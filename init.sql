@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS leaderboard (
 );
 
 -- Insert initial data
-INSERT INTO leaderboard (name, score) VALUES ('Alice', 100);
-INSERT INTO leaderboard (name, score) VALUES ('Bob', 200);
-INSERT INTO leaderboard (name, score) VALUES ('Charlie', 150);
+INSERT INTO leaderboard (name, score) VALUES ('Huba', 42);
+INSERT INTO leaderboard (name, score) VALUES ('Bob', 1);
+INSERT INTO leaderboard (name, score) VALUES ('Joe', 12);
