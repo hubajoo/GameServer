@@ -1,17 +1,17 @@
 
+let ip;
+let username = 'Anon';
+
 document.addEventListener('DOMContentLoaded', async () => {
   const jsonResp = await fetch('data.json');
   const data = await jsonResp.json();
-  let ip = data.ServerIp;
-  console.log(ip);
-  //ip = "http://127.0.0.1:8090";
+  ip = data.ServerIp;
+
   console.log(`http://${ip}:8090/api/leaderboard`);
   const response = await fetch(`http://${ip}/api/leaderboard`);
 
   const leaderboard = await response.json();
   const leaderboardElement = document.getElementById('leaderboard');
-
-  //leaderboardElement.innerText = ip;
 
   leaderboard.forEach(entry => {
     const li = document.createElement('li');
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 });
 document.getElementById('downloadBtn').addEventListener('click', async () => {
-  const response = await fetch(`http://${ip}/Game:bob`);
+  const response = await fetch(`http://${ip}/Game:${username}`);
   const blob = await response.blob();
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -32,4 +32,9 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
   a.click();
   window.URL.revokeObjectURL(url);
   document.body.removeChild(a);
+});
+
+document.getElementById('username').addEventListener('change', (event) => {
+  const username = event.target.value;
+  console.log('Changed username:', username);
 });

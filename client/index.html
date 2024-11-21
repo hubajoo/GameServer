@@ -9,8 +9,17 @@
 </head>
 
 <body>
-  <button id="downloadBtn">Download Game</button>
+
   <div id="root">
+
+    <h1>Huba's 2D Game</h1>
+    <div id="downloadBox">
+      <form id="userForm">
+        <label for="username">Provide a username for the leaderboards</label>
+        <input type="text" id="username" name="username" default="Bob" required>
+      </form>
+      <button id="downloadBtn">Download Game</button>
+    </div>
     <h1>Leaderboard</h1>
     <ul id="leaderboard"></ul>
   </div>

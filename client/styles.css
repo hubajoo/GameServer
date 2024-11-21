@@ -1,11 +1,12 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   background-color: #f0f0f0;
   margin: 0;
   padding: 0;
 }
 
 #root {
+  margin-top: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,4 +29,61 @@ li {
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  background-color: #4CAF50;
+  /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  width: 20vh;
+  /* Set a fixed width */
+  height: 10vh;
+  /* Set a fixed height */
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  /* Set a fixed width */
+  height: 6vh;
+  /* Set a fixed height */
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  align-items: center;
+}
+
+#downloadBox {
+  background-color: #fff;
+  margin: 5px 0;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#downloadBtn {
+  display: block;
+  margin: 0 auto;
 }
