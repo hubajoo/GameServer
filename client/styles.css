@@ -6,7 +6,6 @@ body {
 }
 
 #root {
-  margin-top: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,15 +62,15 @@ label {
 input[type="text"],
 input[type="password"],
 input[type="email"] {
+  width: 200px;
   /* Set a fixed width */
-  height: 6vh;
+  height: 40px;
   /* Set a fixed height */
   padding: 10px;
   margin: 10px 0;
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 5px;
-  align-items: center;
 }
 
 #downloadBox {
@@ -86,4 +85,10 @@ input[type="email"] {
 #downloadBtn {
   display: block;
   margin: 0 auto;
+}
+
+#userForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

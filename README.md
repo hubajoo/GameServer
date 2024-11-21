@@ -1,4 +1,4 @@
-# Huba's 2D Game
+# Huba's Game Server
 
 ![contributors-shield]
 ![forks-shield]
@@ -10,9 +10,9 @@
   <a href="https://github.com/hubajoo/huba-shooter-game-project">
     <img src="images/Icon.png" alt="Logo" width="80" height="80">
   </a>
-  <h3 align="center">Huba's 2D Game</h3>
+  <h3 align="center">Huba's Game Server</h3>
   <p align="center">
-    A fun and engaging 2D shooter game.
+    A server that track the leaderboard of game instances, provides a website for viewing it and downloading the game.
     <br />
     <a href="https://github.com/hubajoo/huba-shooter-game-project"><strong>Explore the docs »</strong></a>
     <br />
@@ -43,7 +43,9 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Huba's 2D Game is a fun and engaging 2D shooter game where players can compete for the highest score on the leaderboard. The game features smooth controls, exciting gameplay, and a competitive leaderboard to track your progress.
+ A server that track the leaderboard of game instances, provides a website for viewing it and downloading the game. 
+ The server configures itself using the client requests and updates the game files, so games downloaded from it can coommunicate properly.
+
 
 ### Built With
 
@@ -85,9 +87,7 @@ To get a local copy up and running follow these simple steps.
 
 ## Usage
 
-1. Open your browser and navigate to `http://localhost:8090`.
-2. Enter your username in the form and submit to save your score to the leaderboard.
-3. Click the "Download Game" button to download the game files.
+1. Deploy it as a container and direct traffic to it. 
 
 _For more examples, please refer to the [Documentation](https://github.com/hubajoo/huba-shooter-game-project)_
 
