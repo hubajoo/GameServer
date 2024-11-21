@@ -5,4 +5,3 @@ ViewPortHeight=50
 PlayerHealth=100
 PlayerDamage=1
 PlayerRange=5
-ServerUrl=http://127.0.0.1:8090
