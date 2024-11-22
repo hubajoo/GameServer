@@ -1,14 +1,14 @@
 
-let ip;
+let address;
 let username = 'Anon';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const jsonResp = await fetch('data.json');
   const data = await jsonResp.json();
-  ip = data.ServerIp;
+  address = data.ServerIp;
 
-  console.log(`http://${ip}:8090/api/leaderboard`);
-  const response = await fetch(`http://${ip}/api/leaderboard`);
+  console.log(`http://${address}/api/leaderboard`);
+  const response = await fetch(`http://${address}/api/leaderboard`);
 
   const leaderboard = await response.json();
   const leaderboardElement = document.getElementById('leaderboard');
@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     li.textContent = `${entry.name}: ${entry.score}`;
     leaderboardElement.appendChild(li);
   });
-
+  console.log(address)
 });
 document.getElementById('downloadBtn').addEventListener('click', async () => {
-  const response = await fetch(`http://${ip}/Game:${username}`);
+  const response = await fetch(`http://${address}/Game:${username}`);
   const blob = await response.blob();
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement('a');

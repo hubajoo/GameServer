@@ -1,29 +1,40 @@
 const express = require('express');
 const { Pool } = require('pg');
 const path = require('path');
-const app = express();
-const port = 8090;
 const cors = require('cors');
-const fs = require('fs');
 const archiver = require('archiver');
+const fs = require('fs');
 
+// Load environment variables from .env file
 require('dotenv').config();
 
-console.log(`Server starting on ${port}`);
+const app = express();
+
+let port = process.env.PORT || 8090;
+let ip = process.env.IP_ADDRESS || process.env.LOADBALANCER_IP || '127.0.0.1';
+console.log(`Server starting on ${ip}:${port}`);
+
+// Enable CORS for all routes
+app.use(cors());
 
 
+//Parse json bodies
+app.use(express.json());
+
+
+// Connect to the database
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
 
-// Enable CORS for all routes
-app.use(cors());
+// Serve the client folder as a static website
+app.use(express.static(path.join(__dirname, 'client')));
 
+
+// Middleware to refresh the data.json file with the server IP
 app.use((req, res, next) => {
 
-  const ip = req.headers['host'];
-  //console.log(req.headers['host']);
   const filePath = path.join("client", 'data.json');
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
@@ -51,16 +62,12 @@ app.use((req, res, next) => {
     });
   });
 });
-app.use(express.static(path.join(__dirname, 'client')));
 
 
-//Parse json bodies
-app.use(express.json());
-
-
+// Endpoint to get the leaderboard from the database
 app.get('/api/leaderboard', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM leaderboard');
+    const result = await pool.query('SELECT * FROM leaderboard ORDER BY score DESC LIMIT 50');
     res.status(200).json(result.rows);
   } catch (err) {
     console.error('Error querying database:', err);
@@ -68,7 +75,7 @@ app.get('/api/leaderboard', async (req, res) => {
   }
 });
 
-
+// Endpoint to add a score to the leaderboard
 app.put('/api/leaderboard', async (req, res) => {
   try {
     const { Name, Score } = req.body;
@@ -98,36 +105,52 @@ app.get('/game:name', (req, res) => {
     const logMessage = `ServerUrl=${ip}\nName=${name}\n`;
     console.log(logMessage);
 
-    fs.appendFile(filePath, logMessage, (err) => {
+    fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
-        console.error('Error writing to log file:', err);
+        console.error('Error reading settings file:', err);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      if (!data.includes(`ServerUrl=${ip}`)) {
+        fs.appendFile(filePath, logMessage, (err) => {
+          if (err) {
+            console.error('Error writing to log file:', err);
+            return res.status(500).send('Internal Server Error');
+          }
+          res.status(200).send('Settings updated');
+        });
+      } else {
+        res.status(200).send('ServerUrl already exists in settings file');
       }
     });
-
-    const folderPath = path.join(__dirname, 'GameFiles');
-    const zipFileName = 'HubaGame.zip';
-
-    res.setHeader('Content-Disposition', `attachment; filename=${zipFileName}`);
-    res.setHeader('Content-Type', 'application/zip');
-
-    const archive = archiver('zip', {
-      zlib: { level: 9 } // Sets the compression level
-    });
-
-    archive.on('error', (err) => {
-      throw err;
-    });
-
-    archive.pipe(res);
-
-    archive.directory(folderPath, false);
-
-    archive.finalize();
   } catch (err) {
-    console.error('Error inserting into database:', err);
-    res.status(500).send('Error adding to leaderboard');
+    console.error('Error handling request:', err);
+    res.status(500).send('Internal Server Error');
   }
 
+  const folderPath = path.join(__dirname, 'GameFiles');
+  const zipFileName = 'HubaGame.zip';
+
+  res.setHeader('Content-Disposition', `attachment; filename=${zipFileName}`);
+  res.setHeader('Content-Type', 'application/zip');
+
+  const archive = archiver('zip', {
+    zlib: { level: 9 } // Sets the compression level
+  });
+
+  archive.on('error', (err) => {
+    throw err;
+  });
+
+  archive.pipe(res);
+
+  archive.directory(folderPath, false);
+
+  archive.finalize();
+});
+
+app.get('/favicon.ico', (req, res) => {
+  res.status(204);
 });
 
 app.use((req, res) => {
@@ -136,5 +159,5 @@ app.use((req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+  console.log(`Server is listening on ${ip}:${port}`);
 });
