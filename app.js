@@ -27,14 +27,18 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-
-// Serve the client folder as a static website
-app.use(express.static(path.join(__dirname, 'client')));
-
+app.get('/api/test-db', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT 1');
+    res.status(200).send('Database connection is working');
+  } catch (err) {
+    console.error('Error testing database connection:', err);
+    res.status(500).send('Error testing database connection');
+  }
+});
 
 // Middleware to refresh the data.json file with the server IP
 app.use((req, res, next) => {
-
   const filePath = path.join("client", 'data.json');
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
@@ -63,6 +67,8 @@ app.use((req, res, next) => {
   });
 });
 
+// Serve the client folder as a static website
+app.use(express.static(path.join(__dirname, 'client')));
 
 // Endpoint to get the leaderboard from the database
 app.get('/api/leaderboard', async (req, res) => {
@@ -99,8 +105,6 @@ app.put('/api/leaderboard', async (req, res) => {
 app.get('/game:name', (req, res) => {
   try {
     const filePath = path.join("GameFiles/Data", 'settings.txt');
-    const ip = req.connection.localAddress.split(":").pop();
-    console.log("ip " + ip);
     const name = req.params.name;
     const logMessage = `ServerUrl=${ip}\nName=${name}\n`;
     console.log(logMessage);
@@ -111,16 +115,12 @@ app.get('/game:name', (req, res) => {
         return res.status(500).send('Internal Server Error');
       }
 
-      if (!data.includes(`ServerUrl=${ip}`)) {
+      if (!data.includes(`ServerUrl`)) {
         fs.appendFile(filePath, logMessage, (err) => {
           if (err) {
             console.error('Error writing to log file:', err);
-            return res.status(500).send('Internal Server Error');
           }
-          res.status(200).send('Settings updated');
         });
-      } else {
-        res.status(200).send('ServerUrl already exists in settings file');
       }
     });
   } catch (err) {

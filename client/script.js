@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const jsonResp = await fetch('data.json');
   const data = await jsonResp.json();
   address = data.ServerIp;
+  console.log("address: ", address);
 
   console.log(`http://${address}/api/leaderboard`);
   const response = await fetch(`http://${address}/api/leaderboard`);
@@ -18,8 +19,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     li.textContent = `${entry.name}: ${entry.score}`;
     leaderboardElement.appendChild(li);
   });
-  console.log(address)
+
 });
+
 document.getElementById('downloadBtn').addEventListener('click', async () => {
   const response = await fetch(`http://${address}/Game:${username}`);
   const blob = await response.blob();
