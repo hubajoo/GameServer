@@ -4,5 +4,4 @@ ViewPortWidth=200
 ViewPortHeight=50
 PlayerHealth=100
 PlayerDamage=1
-PlayerRange=5ServerUrl=127.0.0.1
-Name=:Huba
+PlayerRange=5

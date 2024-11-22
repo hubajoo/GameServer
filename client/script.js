@@ -7,12 +7,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const data = await jsonResp.json();
   address = data.ServerIp;
   console.log("address: ", address);
-
-  console.log(`http://${address}/api/leaderboard`);
-  const response = await fetch(`http://${address}/api/leaderboard`);
-
-  const leaderboard = await response.json();
+  console.log("version 3");
+  const test = await fetch(`http://${address}/test`);
   const leaderboardElement = document.getElementById('leaderboard');
+  leaderboardElement.textContent = address;
+
+  const li = document.createElement('a');
+  li.textContent = `${entry.name}: ${entry.score}`;
+  leaderboardElement.appendChild(ltesti);
+
+  const response = await fetch(`http://${address}/api/leaderboard`);
+  const leaderboard = await response.json();
 
   leaderboard.forEach(entry => {
     const li = document.createElement('li');

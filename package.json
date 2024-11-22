@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "jest Tests/app.test.js"
+    "test": "jest tests/app.test.js --detectOpenHandles"
   },
   "dependencies": {
     "express": "^4.17.1",

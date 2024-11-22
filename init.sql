@@ -1,3 +1,7 @@
+CREATE DATABASE leaderboard_test;
+
+\connect leaderboard_test;
+
 CREATE TABLE IF NOT EXISTS leaderboard (
   id SERIAL PRIMARY KEY,
   name VARCHAR(100),
