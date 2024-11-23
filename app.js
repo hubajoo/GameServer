@@ -18,10 +18,21 @@ app.use(cors());
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
-// Connect to the database
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+// Function to test the database connection
+async function testDbConnection() {
+  try {
+    const client = await pool.connect();
+    console.log('Connected to the database successfully!');
+    client.release();
+  } catch (err) {
+    console.error('Error testing database connection:', err);
+  }
+}
+
+// Call the function to test the connection
+testDbConnection();
 
 // Serve static files from the 'client' directory
 app.use(express.static(path.join(__dirname, 'client')));

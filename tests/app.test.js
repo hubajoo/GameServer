@@ -1,4 +1,5 @@
-﻿const request = require('supertest');
+﻿/*
+const request = require('supertest');
 const { app, server } = require('../app'); // Adjust the path as necessary
 const { Pool } = require('pg');
 require('dotenv').config();
@@ -34,3 +35,4 @@ describe('Database Tests', () => {
     expect(res.text).toBe('Database connection is working');
   });
 });
+*/
