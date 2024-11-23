@@ -8,13 +8,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   address = data.ServerIp;
   console.log("address: ", address);
   console.log("version 3");
-  const test = await fetch(`http://${address}/test`);
-  const leaderboardElement = document.getElementById('leaderboard');
-  leaderboardElement.textContent = address;
+  const test = await fetch(`http://${address}`);
+  console.log("test: ", test.status);
 
-  const li = document.createElement('a');
-  li.textContent = `${entry.name}: ${entry.score}`;
-  leaderboardElement.appendChild(ltesti);
+  const leaderboardElement = document.getElementById('leaderboard');
 
   const response = await fetch(`http://${address}/api/leaderboard`);
   const leaderboard = await response.json();

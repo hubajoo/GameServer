@@ -10,6 +10,7 @@ const app = express();
 
 let port = process.env.PORT || 8090;
 let ip = process.env.IP_ADDRESS || '127.0.0.1';
+let address = `${ip}:${port}`;
 console.log(`Server starting on ${ip}:${port}`);
 
 // Enable CORS for all routes
@@ -18,7 +19,10 @@ app.use(cors());
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+// Connect to the database
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+});
 
 // Function to test the database connection
 async function testDbConnection() {
@@ -31,20 +35,15 @@ async function testDbConnection() {
   }
 }
 
-// Call the function to test the connection
 testDbConnection();
 
-// Serve static files from the 'client' directory
-app.use(express.static(path.join(__dirname, 'client')));
 
 // Middleware to refresh the data.json file with the server IP
 app.use((req, res, next) => {
   const filePath = path.join(__dirname, 'client', 'data.json');
-  console.log(`Reading data from ${filePath}`);
-
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
-      console.error('Error reading data file:', err);
+      console.error('Error reading data.json file:', err);
       return res.status(500).send('Internal Server Error');
     }
 
@@ -52,22 +51,25 @@ app.use((req, res, next) => {
     try {
       jsonData = JSON.parse(data);
     } catch (parseErr) {
-      console.error('Error parsing JSON data:', parseErr);
+      console.error('Error parsing data.json file:', parseErr);
       return res.status(500).send('Internal Server Error');
     }
 
-    jsonData.ServerIp = ip;
+    jsonData.serverIP = address;
 
     fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), 'utf8', (writeErr) => {
       if (writeErr) {
-        console.error('Error writing to data file:', writeErr);
+        console.error('Error writing data.json file:', writeErr);
         return res.status(500).send('Internal Server Error');
       }
-
-      next();
     });
+    next();
   });
 });
+
+// Serve static files from the 'client' directory
+app.use(express.static(path.join(__dirname, 'client')));
+
 
 // Endpoint to test the database connection
 app.get('/api/test-db', async (req, res) => {
@@ -95,6 +97,7 @@ app.get('/api/leaderboard', async (req, res) => {
 app.put('/api/leaderboard', async (req, res) => {
   try {
     const { Name, Score } = req.body;
+    console.log("New score  -  Name: " + Name + " Score: " + Score);
     if (!Name || parseInt(Score) < 0) {
       console.log("Bad request");
       return res.status(400).send('Name and score are required');
