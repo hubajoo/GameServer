@@ -4,27 +4,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leaderboard</title>
+  <title>Huba's 2D Game</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
   <div id="root">
     <div class="content-container">
-      <div id="gameContainer">
+      <div class="game-container">
         <h1 id="title">Huba's 2D Game</h1>
-        <div id="downloadBox">
-          <form id="userForm">
+        <div id="download-box">
+          <form id="user-form">
             <label for="username">Provide a username for the leaderboards</label>
             <input type="text" id="username" name="username" default="Bob" required>
           </form>
           <div id="button-container">
-            <button id="downloadButton">Download</button>
+            <button id="download-button">Download</button>
           </div>
         </div>
       </div>
-      <div id="leaderboardCOntainer">
+      <div id="leaderboard-container">
         <h1>Leaderboard</h1>
         <ul id="leaderboard"></ul>
       </div>

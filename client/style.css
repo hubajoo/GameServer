@@ -1,29 +1,75 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #2C2F33;
+  background-color: #005ed8;
   color: white;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+label {
+  display: block;
+  text-align: center;
+  font-size: 2.8vh;
+  margin-top: 1vh;
 }
 
 #title {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 5vh;
+  font-size: 6vh;
 }
 
-#game-container {
-  background-color: #131416;
+
+.game-container {
+  border-radius: 5vh;
+  background-color: #15171a;
+  box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.1);
+  padding: 5vh;
+  display: inline-block;
 }
 
 .list-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-group-item {
+  color: white;
+  padding: 1vh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#leaderboard-container {
+  background-color: #3274cc;
+  padding: 5vh;
+  margin-top: 5vh;
+  border-radius: 1vh;
 }
 
 button {
-  padding: 10px 20px;
+  padding: 2vh 5vh;
   width: 100%;
-  font-size: 16px;
+  font-size: 4vh;
   background-color: #1e4d1f;
   color: white;
   border: none;
@@ -38,10 +84,8 @@ button {
   justify-content: center;
   align-items: center;
   background-color: #2C2F33;
-  /* Background color for the container */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  height: 100%;
 }
 
 
@@ -64,4 +108,5 @@ input[type="email"] {
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 5px;
+  text-align: center;
 }
