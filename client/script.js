@@ -3,18 +3,28 @@ let address;
 let username = 'Anon';
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // Fetch the server IP address
-  const jsonResp = await fetch('data.json');
-  const data = await jsonResp.json();
-  address = data.ServerIp;
+  try {
+    // Fetch the server IP address
+    const jsonResp = await fetch('data.json');
+    const data = await jsonResp.json();
+    address = data.ServerIp;
+    console.log('Server IP:', address);
+  } catch (err) {
+    console.error('Reading config data:', err);
+  }
+  try {
+    // Fetch the leaderboard data
+    const leaderboardElement = document.getElementById('leaderboard');
 
-  // Fetch the leaderboard data
-  const leaderboardElement = document.getElementById('leaderboard');
-
-  // Fetch the leaderboard data
-  const response = await fetch(`http://${address}/api/leaderboard`);
-  const leaderboard = await response.json();
-
+    // Fetch the leaderboard data
+    const response = await fetch(`http://${address}/api/leaderboard`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const leaderboard = await response.json();
+  } catch (err) {
+    console.error('Error fetchin leaderboards:', err);
+  }
   // Populate the leaderboard element
   leaderboard.forEach(entry => {
     const li = document.createElement('li');
@@ -25,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Add event listener to the submit button
-document.getElementById('downloadBtn').addEventListener('click', async () => {
+document.getElementById('downloadButton').addEventListener('click', async () => {
   // Fetch the game data
   const response = await fetch(`http://${address}/Game:${username}`);
 

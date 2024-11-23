@@ -9,7 +9,7 @@ require('dotenv').config();
 const app = express();
 
 let port = process.env.PORT || 8090;
-let ip = process.env.IP_ADDRESS || '127.0.0.1';
+let ip = process.env.IP_ADDRESS || process.env.LOADBALANCER_IP || '127.0.0.1';
 let address = `${ip}:${port}`;
 console.log(`Server starting on ${ip}:${port}`);
 
@@ -18,20 +18,29 @@ app.use(cors());
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
-/*
-// Connect to the database
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
-});
-*/
-// Connect to the database
-const pool = new Pool({
-  user: process.env.POSTGRES_USER,
-  host: 'db', // Use the service name defined in docker-compose.yaml
-  database: process.env.POSTGRES_DB,
-  password: process.env.POSTGRES_PASSWORD,
-  port: 5432,
-});
+
+// Database connection pool
+let pool;
+
+// Function to set the database connection pool
+async function setPool() {
+  // Use the DATABASE_URL environment variable if it exists
+  let connectionString = process.env.DATABASE_URL;
+  pool = new Pool({ connectionString });
+
+  if (!await testDbConnection()) {
+    console.log('Failed to connect to the database, trying again with default values');
+    pool = new Pool({
+      user: process.env.POSTGRES_USER,
+      host: 'db', // Connect to the 'db' container
+      database: process.env.POSTGRES_DB,
+      password: process.env.POSTGRES_PASSWORD,
+      port: 5432,
+    });
+  }
+}
+setPool();
+
 
 // Function to test the database connection
 async function testDbConnection() {
@@ -39,8 +48,10 @@ async function testDbConnection() {
     const client = await pool.connect();
     console.log('Connected to the database successfully!');
     client.release();
+    return true;
   } catch (err) {
-    console.error('Error testing database connection:', err);
+    //console.error('Error testing database connection:', err);
+    return false;
   }
 }
 
@@ -49,31 +60,41 @@ testDbConnection();
 
 // Middleware to refresh the data.json file with the server IP
 app.use((req, res, next) => {
-  const filePath = path.join(__dirname, 'client', 'data.json');
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading data.json file:', err);
-      return res.status(500).send('Internal Server Error');
-    }
+  try {
 
-    let jsonData;
-    try {
-      jsonData = JSON.parse(data);
-    } catch (parseErr) {
-      console.error('Error parsing data.json file:', parseErr);
-      return res.status(500).send('Internal Server Error');
-    }
-
-    jsonData.serverIP = address;
-
-    fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), 'utf8', (writeErr) => {
-      if (writeErr) {
-        console.error('Error writing data.json file:', writeErr);
+    const filePath = path.join(__dirname, 'client', 'data.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        console.error('Error reading data.json file:', err);
         return res.status(500).send('Internal Server Error');
       }
+      let jsonData;
+      try {
+        jsonData = JSON.parse(data);
+      } catch (parseErr) {
+        console.error('Error parsing data.json file:', parseErr);
+        return res.status(500).send('Internal Server Error');
+      }
+
+      if (jsonData.ServerIP === address) {
+        return next();
+      }
+
+      jsonData.ServerIP = address;
+
+      fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), 'utf8', (writeErr) => {
+        if (writeErr) {
+          console.error('Error writing data.json file:', writeErr);
+          return res.status(500).send('Internal Server Error');
+        }
+      });
+      next();
     });
-    next();
-  });
+  } catch (err) {
+    console.error('Error handling request:', err);
+    console.log('Error handling request:', err);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 // Serve static files from the 'client' directory

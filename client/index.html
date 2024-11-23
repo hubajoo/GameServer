@@ -11,17 +11,21 @@
 <body>
 
   <div id="root">
-
-    <h1 id="title">Huba's 2D Game</h1>
-    <div id="downloadBox">
-      <form id="userForm">
-        <label for="username">Provide a username for the leaderboards</label>
-        <input type="text" id="username" name="username" default="Bob" required>
-      </form>
-      <button id="downloadBtn">Download Game</button>
+    <div class="content-container">
+      <h1 id="title">Huba's 2D Game</h1>
+      <div id="downloadBox">
+        <form id="userForm">
+          <label for="username">Provide a username for the leaderboards</label>
+          <input type="text" id="username" name="username" default="Bob" required>
+        </form>
+        <div id="button-container">
+          <button id="downloadButton">Download</button>
+        </div>
+      </div>
+      <h1>Leaderboard</h1>
+      <p>Some content here...</p>
+      <ul id="leaderboard"></ul>
     </div>
-    <h1>Leaderboard</h1>
-    <ul id="leaderboard"></ul>
   </div>
   <script src="script.js"></script>
 </body>
