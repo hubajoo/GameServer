@@ -27,9 +27,30 @@ describe('GET /', () => {
     const res = await request(app).get('/');
     expect(res.statusCode).toEqual(200);
   });
+  it('should return index.html', async () => {
+    const res = await request(app).get('/');
+    expect(res.statusCode).toEqual(200);
+  });
+  it('should return script.js', async () => {
+    const res = await request(app).get('/script.js');
+    expect(res.statusCode).toEqual(200);
+  });
+  it('should return style.css', async () => {
+    const res = await request(app).get('/style.css');
+    expect(res.statusCode).toEqual(200);
+  });
+  it('should return data.json', async () => {
+    const res = await request(app).get('/data.json');
+    expect(res.statusCode).toEqual(200);
+  });
+  it('should return 404 for invalid route', async () => {
+    const res = await request(app).get('/invalid');
+    expect(res.statusCode).toEqual(404);
+  });
 });
 
-describe('Database Tests', () => {
+
+describe('GET /api/test-db', () => {
   it('should return a 200 status code for /api/test-db', async () => {
     const res = await request(app).get('/api/test-db');
     expect(res.statusCode).toEqual(200);
@@ -57,24 +78,13 @@ describe('POST /api/leaderboard', () => {
   it('should return a 201 status code', async () => {
     const res = await request(app)
       .post('/api/leaderboard')
-      .send({ name: 'test', score: 100 });
+      .send({ Name: 'test', Score: 100 });
     expect(res.statusCode).toEqual(201);
   });
-  /*
   it('should return a 400 status code for invalid data', async () => {
     const res = await request(app)
       .post('/api/leaderboard')
       .send({ name: 'test' });
     expect(res.statusCode).toEqual(400);
   });
-  it('should update the leaderboard', async () => {
-    let tname = 'test';
-    let tscore = 100;
-    const res = await request(app)
-      .post('/api/leaderboard')
-      .send({ name: tname, score: tscore });
-    const leaderboard = await request(app).get('/api/leaderboard');
-    expect(leaderboard.body.includes(tname)).toBe(true);
-  });
-  */
 });

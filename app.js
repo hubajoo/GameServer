@@ -18,10 +18,19 @@ app.use(cors());
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
-
+/*
 // Connect to the database
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL
+});
+*/
+// Connect to the database
+const pool = new Pool({
+  user: process.env.POSTGRES_USER,
+  host: 'db', // Use the service name defined in docker-compose.yaml
+  database: process.env.POSTGRES_DB,
+  password: process.env.POSTGRES_PASSWORD,
+  port: 5432,
 });
 
 // Function to test the database connection
@@ -94,7 +103,15 @@ app.get('/api/leaderboard', async (req, res) => {
 });
 
 // Endpoint to add a score to the leaderboard
-app.put('/api/leaderboard', async (req, res) => {
+app.put('/api/leaderboard', (req, res) => updateLeaderboard(req, res)
+);
+
+// Endpoint to add a score to the leaderboard
+app.post('/api/leaderboard', (req, res) => updateLeaderboard(req, res)
+);
+
+// Function to add a score to the leaderboard
+async function updateLeaderboard(req, res) {
   try {
     const { Name, Score } = req.body;
     console.log("New score  -  Name: " + Name + " Score: " + Score);
@@ -111,15 +128,15 @@ app.put('/api/leaderboard', async (req, res) => {
     console.error('Error inserting into database:', err);
     res.status(500).send('Error adding to leaderboard');
   }
-});
+};
 
 // Endpoint to download the folder as a ZIP file
 app.get('/game:name', (req, res) => {
   try {
     const filePath = path.join("GameFiles/Data", 'settings.txt');
     const ip = req.connection.localAddress.split(":").pop();
-    console.log("ip " + ip);
     const name = req.params.name;
+    console.log("name " + name);
     const logMessage = `ServerUrl=${ip}\nName=${name}\n`;
     console.log(logMessage);
 
@@ -176,7 +193,7 @@ app.use((req, res) => {
   res.status(404).send('Not Found');
 });
 
-const server = app.listen(port, ip, () => {
+const server = app.listen(port, '0.0.0.0', () => {
   console.log(`Server is listening on ${ip}:${port}`);
 });
 
