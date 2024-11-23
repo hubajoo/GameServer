@@ -40,10 +40,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     leaderboardElement.appendChild(li);
   });
 
+  for (let i = 0; i < 10; i++) {
+    addBall();
+  }
 });
 
 // Add event listener to the submit button
-document.getElementById('downloadButton').addEventListener('click', async () => {
+document.getElementById('download-button').addEventListener('click', async () => {
 
   // Fetch the game data
   const response = await fetch(`http://${address}/Game?username=${username}`);
@@ -70,3 +73,10 @@ document.getElementById('username').addEventListener('change', (event) => {
   const username = event.target.value;
   console.log('Changed username:', username);
 });
+
+function addBall() {
+  let background = document.querySelector('.background');
+  let ball = document.createElement('span');
+  background.appendChild(ball);
+}
+
