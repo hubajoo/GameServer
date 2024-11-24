@@ -37,7 +37,7 @@ h1 {
   box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.1);
   padding: 5vh;
   display: inline-block;
-  width: 50%;
+  width: 55%;
 }
 
 .list-container {
@@ -68,7 +68,7 @@ ul {
   padding: 5vh;
   margin-top: 5vh;
   border-radius: 1vh;
-  width: 50%;
+  width: 55%;
 
 }
 

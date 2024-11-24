@@ -9,8 +9,8 @@ require('dotenv').config();
 const app = express();
 
 let port = process.env.PORT || 8090;
-let ip = process.env.IP_ADDRESS || process.env.LOADBALANCER_IP || '127.0.0.1';
-let address = `${ip}:${port}`;
+let ip = process.env.IP_ADDRESS || '127.0.0.1';
+let address = process.env.LOADBALANCER_IP || `${ip}:${port}`;
 
 console.log(`Server starting on ${ip}:${port}`);
 
@@ -204,8 +204,10 @@ app.get('/game:username', (req, res) => {
     // Get the name from the request parameters
     const name = req.params.username ? req.params.username : 'Jane Doe';
 
-    // Write the options to the settings file
+    // Define the settings file path
     const filePath = path.join("GameFiles/Data", 'settings.txt');
+
+    // Read the settings file
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
         console.error('Error reading settings file:', err);
@@ -213,8 +215,17 @@ app.get('/game:username', (req, res) => {
       }
 
       // Update the PlayerName and ServerUrl in the settings file
-      data.replace(/PlayerName=.*/g, `PlayerName=${name}`);
-      data.replace(/ServerUrl=.*/g, `ServerUrl=${address}`);
+      if (data.includes('PlayerName')) {
+        data = data.replace(/PlayerName=.*/g, `PlayerName=${name}`);
+      }
+      if (data.includes('ServerUrl')) {
+        data = data.replace(/ServerUrl=.*/g, `ServerUrl=${address}`);
+      }
+
+      if (!data.includes('PlayerName') && !data.includes('ServerUrl')) {
+        data += `PlayerName=${name}\nServerUrl=${address}`;
+      }
+
 
       // Write the updated settings back to the file
       fs.writeFile(filePath, data, 'utf8', (writeErr) => {

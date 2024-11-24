@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// Add event listener to the submit button
+// Add event listener to the download button
 document.getElementById('download-button').addEventListener('click', async () => {
 
   // Fetch the game data
-  const response = await fetch(`http://${address}/Game?username=${username}`);
+  const response = await fetch(`http://${address}/Game${username}`);
 
   // Create a blob from the response
   const blob = await response.blob();
@@ -72,6 +72,12 @@ document.getElementById('download-button').addEventListener('click', async () =>
 document.getElementById('username').addEventListener('change', (event) => {
   const username = event.target.value;
   console.log('Changed username:', username);
+});
+
+// Add event listener to the username input field
+document.getElementById('username').addEventListener('input', (event) => {
+  const username = event.target.value;
+  console.log('Changed input username:', username);
 });
 
 function addBall() {

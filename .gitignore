@@ -23,3 +23,7 @@ Thumbs.db
 .vscode/
 .idea/
 *.iml
+
+# Ignore settings files
+settings.txt
+leaderboard.txt
