@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const archiver = require('archiver');
 const fs = require('fs');
+const { Console } = require('console');
 require('dotenv').config();
 
 const app = express();
@@ -65,7 +66,7 @@ async function testDbConnection() {
     return true;
 
   } catch (err) {
-    //console.error('Error testing database connection:', err);
+    console.log(err);
     return false;
   }
 }
@@ -130,6 +131,7 @@ app.get('/api/test-db', async (req, res) => {
   try {
     // Test the database connection
     const result = await pool.query('SELECT 1');
+    console.log('Database connection is working');
     res.status(200).send('Database connection is working');
 
   } catch (err) {
@@ -198,7 +200,7 @@ async function updateLeaderboard(req, res) {
 };
 
 // Endpoint to download the folder as a ZIP file
-app.get('/game:username', (req, res) => {
+app.get('/game/:username', (req, res) => {
   try {
 
     // Get the name from the request parameters

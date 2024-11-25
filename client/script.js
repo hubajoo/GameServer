@@ -43,8 +43,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Add event listener to the download button
 document.getElementById('download-button').addEventListener('click', async () => {
 
+
+
   // Fetch the game data
-  const response = await fetch(`http://${address}/Game${username}`);
+  const response = await fetch(`http://${address}/game/${username}`);
 
   // Create a blob from the response
   const blob = await response.blob();
@@ -70,8 +72,14 @@ document.getElementById('username').addEventListener('input', (event) => {
   console.log('Changed input username:', username);
 });
 
-// Adds a decorative ball to the background
+// Add event listener to the username input field
+document.getElementById('username').addEventListener('change', (event) => {
+  const username = event.target.value;
+  console.log('Changed input username:', username);
+});
 
+
+// Adds a decorative ball to the background
 function addBall() {
   let background = document.querySelector('.background');
   let span = document.createElement('span');

@@ -5,4 +5,4 @@ PlayerHealth=100
 PlayerDamage=1
 PlayerRange=5
 UserName=Huba
-ServerUrl=http://127.0.0.1:8090
+ServerUrl=127.0.0.1:8090
