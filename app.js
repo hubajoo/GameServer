@@ -12,6 +12,7 @@ const app = express();
 let port = process.env.PORT || 8090;
 let ip = process.env.IP_ADDRESS || '127.0.0.1';
 let address = process.env.LOADBALANCER_IP || `${ip}:${port}`;
+let activeConfig = "default";
 
 console.log(`Server starting on ${ip}:${port}`);
 
@@ -36,7 +37,36 @@ async function setPool() {
 
     // If the connection fails, try again with default values
     console.log('Failed to connect to the database, trying again with default values');
+    activeConfig = "User, Host, Database, Password, Port";
+    // Create a new connection pool with default values
+    pool = new Pool({
+      user: process.env.POSTGRES_USER,
+      host: process.env.DB_HOST,
+      database: process.env.POSTGRES_DB,
+      password: process.env.POSTGRES_PASSWORD,
+      port: 5432,
+    });
+    activeConfig = "DB_HOST"
+  }
 
+  if (!await testDbConnection()) {
+
+    // If the connection fails, try again with default values
+    console.log('Failed to connect to the database, trying again with default values');
+    // Create a new connection pool with default values
+    pool = new Pool({
+      user: process.env.POSTGRES_USER,
+      host: 'postgres',
+      database: process.env.POSTGRES_DB,
+      password: process.env.POSTGRES_PASSWORD,
+      port: 5432,
+    });
+    activeConfig = "postgres"
+  }
+  if (!await testDbConnection()) {
+
+    // If the connection fails, try again with default values
+    console.log('Failed to connect to the database, trying again with default values');
     // Create a new connection pool with default values
     pool = new Pool({
       user: process.env.POSTGRES_USER,
@@ -45,6 +75,7 @@ async function setPool() {
       password: process.env.POSTGRES_PASSWORD,
       port: 5432,
     });
+    activeConfig = "db"
   }
 }
 // Set the database connection pool
@@ -138,7 +169,9 @@ app.get('/api/test-db', async (req, res) => {
 
     // Error handling
     console.error('Error testing database connection:', err);
-    res.status(500).send('Error testing database connection');
+    let message = testDbConnection() ? 'Query failure ' : 'Error testing database connection ';
+    message += activeConfig;
+    res.status(500).send(message);
   }
 });
 
