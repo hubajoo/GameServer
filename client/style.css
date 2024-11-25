@@ -91,7 +91,8 @@ button {
   align-items: center;
   background-color: #2C2F33;
   width: 70vh;
-  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 

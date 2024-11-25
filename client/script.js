@@ -28,20 +28,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Parse the JSON response and store it in the leaderboard variable
     leaderboard = await response.json();
 
+    // Populate the leaderboard element
+    leaderboard.forEach(entry => {
+      const li = document.createElement('li');
+      li.className = 'list-group-item';
+      li.textContent = `${entry.name}: ${entry.score}`;
+      leaderboardElement.appendChild(li);
+    });
   } catch (err) {
     console.error('Error fetchin leaderboards:', err);
-  }
-
-  // Populate the leaderboard element
-  leaderboard.forEach(entry => {
-    const li = document.createElement('li');
-    li.className = 'list-group-item';
-    li.textContent = `${entry.name}: ${entry.score}`;
-    leaderboardElement.appendChild(li);
-  });
-
-  for (let i = 0; i < 10; i++) {
-    addBall();
   }
 });
 
@@ -68,11 +63,6 @@ document.getElementById('download-button').addEventListener('click', async () =>
   document.body.removeChild(a);
 });
 
-// Add event listener to the username input field
-document.getElementById('username').addEventListener('change', (event) => {
-  const username = event.target.value;
-  console.log('Changed username:', username);
-});
 
 // Add event listener to the username input field
 document.getElementById('username').addEventListener('input', (event) => {
@@ -80,9 +70,16 @@ document.getElementById('username').addEventListener('input', (event) => {
   console.log('Changed input username:', username);
 });
 
+// Adds a decorative ball to the background
+
 function addBall() {
   let background = document.querySelector('.background');
-  let ball = document.createElement('span');
-  background.appendChild(ball);
+  let span = document.createElement('span');
+  span.className = 'decorative-span';
+  background.appendChild(span);
 }
 
+// Add balls to the background
+for (let i = 0; i < 15; i++) {
+  addBall();
+}
