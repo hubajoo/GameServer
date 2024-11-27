@@ -7,21 +7,21 @@
 ![license-shield]
 
 <p align="center">
-  <a href="https://github.com/hubajoo/huba-shooter-game-project">
-     <img src="[logo-url]" alt="Logo" width="80" height="80">
+  <a href="https://github.com/hubajoo/GameServer">
+     <img src="https://raw.githubusercontent.com/hubajoo/GameServer/main/Images/favicon.png" alt="Logo" width="80" height="80">
   </a>
   <h3 align="center">Huba's Game Server</h3>
   <p align="center">
     A server that track the leaderboard of game instances, provides a website for viewing it and downloading the game.
     <br />
-    <a href="https://github.com/hubajoo/huba-shooter-game-project"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/hubajoo/GameServer"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/hubajoo/huba-shooter-game-project">View Demo</a>
+    <a href="https://github.com/hubajoo/GameServer">View Demo</a>
     ·
-    <a href="https://github.com/hubajoo/huba-shooter-game-project/issues">Report Bug</a>
+    <a href="https://github.com/hubajoo/GameServer/issues">Report Bug</a>
     ·
-    <a href="https://github.com/hubajoo/huba-shooter-game-project/issues">Request Feature</a>
+    <a href="https://github.com/hubajoo/GameServer/issues">Request Feature</a>
   </p>
 </p>
 
@@ -70,7 +70,7 @@ To get a local copy up and running follow these simple steps.
 ### Installation
 1. Clone the repo
    ```sh
-   git clone https://github.com/hubajoo/huba-shooter-game-project.git
+   git clone https://github.com/hubajoo/GameServer.git
    ```
 2. Install NPM packages
    ```sh
@@ -96,7 +96,7 @@ Contributions are what make the open source community such an amazing place to l
 
 1. Fork the Project
    ```sh
-   git fork https://github.com/hubajoo/huba-shooter-game-project.git
+   git fork https://github.com/hubajoo/GameServer.git
    ```
 2. Create your Feature Branch
    ```sh
@@ -120,7 +120,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Joó Huba - joohuba@gmail.com
 
-Project Link: [https://github.com/hubajoo/huba-shooter-game-project](https://github.com/hubajoo/huba-shooter-game-project)
+Project Link: [https://github.com/hubajoo/GameServer](https://github.com/hubajoo/GameServer)
 
 ## Acknowledgements
 
@@ -134,16 +134,16 @@ Project Link: [https://github.com/hubajoo/huba-shooter-game-project](https://git
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-[contributors-shield]: https://img.shields.io/github/contributors/hubajoo/huba-shooter-game-project.svg?style=for-the-badge
-[contributors-url]: https://github.com/hubajoo/huba-shooter-game-project/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/hubajoo/huba-shooter-game-project.svg?style=for-the-badge
-[forks-url]: https://github.com/hubajoo/huba-shooter-game-project/network/members
-[stars-shield]: https://img.shields.io/github/stars/hubajoo/huba-shooter-game-project.svg?style=for-the-badge
-[stars-url]: https://github.com/hubajoo/huba-shooter-game-project/stargazers
-[issues-shield]: https://img.shields.io/github/issues/hubajoo/huba-shooter-game-project.svg?style=for-the-badge
-[issues-url]: https://github.com/hubajoo/huba-shooter-game-project/issues
-[license-shield]: https://img.shields.io/github/license/hubajoo/huba-shooter-game-project.svg?style=for-the-badge
-[license-url]: https://github.com/hubajoo/huba-shooter-game-project/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/hubajoo/GameServer.svg?style=for-the-badge
+[contributors-url]: https://github.com/hubajoo/GameServer/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/hubajoo/GameServer.svg?style=for-the-badge
+[forks-url]: https://github.com/hubajoo/GameServer/network/members
+[stars-shield]: https://img.shields.io/github/stars/hubajoo/GameServer.svg?style=for-the-badge
+[stars-url]: https://github.com/hubajoo/GameServer/stargazers
+[issues-shield]: https://img.shields.io/github/issues/hubajoo/GameServer.svg?style=for-the-badge
+[issues-url]: https://github.com/hubajoo/GameServer/issues
+[license-shield]: https://img.shields.io/github/license/hubajoo/GameServer.svg?style=for-the-badge
+[license-url]: https://github.com/hubajoo/GameServer/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/huba-joó
 [logo-url]: https://raw.githubusercontent.com/hubajoo/GameServer/main/Images/favicon.png
