@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://github.com/hubajoo/huba-shooter-game-project">
-    <img src="images/Icon.png" alt="Logo" width="80" height="80">
+     <img src="[logo-url]" alt="Logo" width="80" height="80">
   </a>
   <h3 align="center">Huba's Game Server</h3>
   <p align="center">
@@ -41,7 +41,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+![Product Name Screen Shot][product-screenshot]
 
  A server that track the leaderboard of game instances, provides a website for viewing it and downloading the game. 
  The server configures itself using the client requests and updates the game files, so games downloaded from it can coommunicate properly.
@@ -88,8 +88,6 @@ To get a local copy up and running follow these simple steps.
 ## Usage
 
 1. Deploy it as a container and direct traffic to it. 
-
-_For more examples, please refer to the [Documentation](https://github.com/hubajoo/huba-shooter-game-project)_
 
 
 ## Contributing
@@ -148,6 +146,5 @@ Project Link: [https://github.com/hubajoo/huba-shooter-game-project](https://git
 [license-url]: https://github.com/hubajoo/huba-shooter-game-project/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/huba-joó
-[product-screenshot]: images/screenshot.png
-
-Similar code found with 2 license types
+[logo-url]: https://raw.githubusercontent.com/hubajoo/GameServer/main/Images/favicon.png
+[product-screenshot]: https://raw.githubusercontent.com/hubajoo/GameServer/main/Images/screenshot.png

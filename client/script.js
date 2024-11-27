@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log("jsonResp.status", jsonResp.status);
     const data = await jsonResp.json();
     address = data.ServerIP;
+
+    console.log("data.PostgresIp", data.PostgresIp);
+
     console.log('Server IP:', address);
   } catch (err) {
     console.error('Reading config data:', err);

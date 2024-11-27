@@ -128,8 +128,13 @@ app.use((req, res, next) => {
         return next();
       }
 
+      if (process.env.POSTGRES_IP) {
+        jsonData.PostgresIp = process.env.POSTGRES_IP;
+      }
+
       // Update the server IP in the JSON data
       jsonData.ServerIP = address;
+
 
       // Write the updated JSON data back to the file
       fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), 'utf8', (writeErr) => {
