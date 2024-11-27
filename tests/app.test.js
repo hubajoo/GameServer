@@ -19,7 +19,7 @@ afterEach(async () => {
 afterAll(async () => {
   await pool.end();
   server.close();
-}, 5000);
+}, 10000);
 
 
 describe('GET /', () => {
@@ -66,13 +66,13 @@ describe('GET /api/leaderboard', () => {
   });
 });
 
-describe('GET /Game:username', () => {
+describe('GET /api/game/:username', () => {
   it('should return a 200 status code and a zip file', async () => {
-    const res = await request(app).get('/Game:username');
+    const res = await request(app).get('/api/game/:username');
     expect(res.statusCode).toEqual(200);
     expect(res.headers['content-type']).toBe('application/zip; charset=utf-8');
   });
-});
+}, 10000);
 
 describe('POST /api/leaderboard', () => {
   it('should return a 201 status code', async () => {

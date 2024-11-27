@@ -89,6 +89,29 @@ To get a local copy up and running follow these simple steps.
 
 1. Deploy it as a container and direct traffic to it. 
 
+2. Add your username to the username field.
+
+3. Click the download button.
+
+4. Unpack the downloaded game.zip file
+
+5. Play the game and track your highscores in game or on the website.
+
+## Testing
+
+1. Install NPM packages
+   ```sh
+   npm install
+   ```
+1. Start the database
+   ```sh
+   docker-compose up --build db
+   ```
+2. Run included tests
+   ```sh
+   npm test
+   ```
+
 
 ## Contributing
 

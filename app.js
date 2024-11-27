@@ -238,7 +238,7 @@ async function updateLeaderboard(req, res) {
 };
 
 // Endpoint to download the folder as a ZIP file
-app.get('/game/:username', (req, res) => {
+app.get('/api/game/:username', (req, res) => {
   try {
 
     // Get the name from the request parameters

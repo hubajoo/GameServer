@@ -49,7 +49,7 @@ document.getElementById('download-button').addEventListener('click', async () =>
 
 
   // Fetch the game data
-  const response = await fetch(`http://${address}/game/${username}`);
+  const response = await fetch(`http://${address}/api/game/${username}`);
 
   // Create a blob from the response
   const blob = await response.blob();
