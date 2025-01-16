@@ -34,21 +34,21 @@ name: gameserver
 
 on:
   push:
-    branches: [main]
+    branches: [aks-devhub-icegc]
   workflow_dispatch:
 
 env:
   ACR_RESOURCE_GROUP: gameserver
-  AZURE_CONTAINER_REGISTRY: hubagameserver
-  CONTAINER_NAME: image-workflow-1737061888752
+  AZURE_CONTAINER_REGISTRY: registry1737062736117
+  CONTAINER_NAME: image-workflow-1737062710206
   CLUSTER_RESOURCE_GROUP: gameserver
   CLUSTER_NAME: gameserver
   DEPLOYMENT_MANIFEST_PATH: |
-    manifests/deployment.yaml
-    manifests/service.yaml
+    ./manifests/deployment.yaml
+    ./manifests/service.yaml
   DOCKER_FILE: ./Dockerfile
   BUILD_CONTEXT_PATH: ./
-  NAMESPACE: sample-app-namespace-1737061888758
+  NAMESPACE: sample-app-namespace-1737062710223
 
 jobs:
   buildImage:
