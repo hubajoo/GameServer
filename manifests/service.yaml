@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gameserver
+  namespace: sample-app-namespace-1737061888758
+  labels:
+    kubernetes.azure.com/generator: devhub
+spec:
+  type: LoadBalancer
+  selector:
+    app: gameserver
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 8090
