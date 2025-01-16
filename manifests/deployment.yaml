@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gameserver
+  labels:
+    app: gameserver
+    kubernetes.azure.com/generator: devhub
+  namespace: sample-app-namespace-1737061888758
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gameserver
+  template:
+    metadata:
+      labels:
+        app: gameserver
+    spec:
+      containers:
+        - name: gameserver
+          image: hubagameserver.azurecr.io/image-workflow-1737061888752:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8090
